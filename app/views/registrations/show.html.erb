@@ -1,0 +1,16 @@
+<% if @registration %>
+  <p>
+    <strong>User:</strong>
+    <%= @registration.user.name %>
+  </p>
+
+  <p>
+    <strong>Exam:</strong>
+    <%= @registration.exam.title %>
+  </p>
+<% else %>
+  <p>Registration not found</p>
+<% end %>
+
+<%= link_to 'Edit', edit_registration_path(@registration) %> |
+<%= link_to 'Back', registrations_path %>

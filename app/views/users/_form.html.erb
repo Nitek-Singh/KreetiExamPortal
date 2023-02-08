@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <%= form_with(model: @user, class: "shadow p-3 mb-3 bg-info rounded", local: true) do |f| %>
+        <div class="form-group row">
+          <%= f.label :name, class: "col-2 col-form-label text-light" %>
+          <div class="col-10">
+            <%= f.text_field :name, class: "form-control shadow rounded", placeholder: "Enter Your Name" %>
+          </div>
+        </div><br/>
+
+        <div class="form-group row">
+          <%= f.label :department, class: "col-2 col-form-label text-light" %>
+          <div class="col-10">
+            <%= f.text_field :department, class: "form-control shadow rounded", placeholder: "Enter Your Department" %>
+          </div>
+        </div><br/>
+
+        <div class="input-group"><br/>
+            <%= f.label :college_id, class: "col-2 col-form-label text-light" %>
+            <%= f.select :college_id, class: "col-2 col-form-label text-light" do%>
+                <% College.all.each do |college| %>
+                    <option value="<%= college.id %>"><%= college.name %></option>
+                  <% end %>
+            <%end%>
+        </div><br/>
+
+        <div class="form-group row">
+          <%= f.label :email, class: "col-2 col-form-label text-light" %>
+          <div class="col-10"> 
+            <%= f.email_field :email, class: "form-control shadow rounded", placeholder: "Enter your email address" %>
+          </div>
+        </div><br/>
+
+        <div class="form-group row">
+          <%= f.label :password, class: "col-2 col-form-label text-light" %>
+          <div class="col-10"> 
+            <%= f.password_field :password, class: "form-control shadow rounded", placeholder: "Enter Password" %>
+          </div>
+        </div><br/>
+
+        <div class="form-group row">
+          <%= f.label :description, class: "col-2 col-form-label text-light" %>
+          <div class="col-10">
+            <%= f.text_area :description, class: "form-control shadow rounded", placeholder: "Tell something about yourself" %>
+          </div>
+        </div><br/>
+
+        <div class="form-group row">
+          <%= f.label :linkedin_url, class: "col-2 col-form-label text-light" %>
+          <div class="col-10">
+            <%= f.text_field :linkedin_url, class: "form-control shadow rounded", placeholder: "Enter Your LinkedIn URL" %>
+          </div>
+        </div><br/>
+    
+        <div class="form-group row justify-content-center">
+          <%= f.submit class: "btn btn-outline-light btn-lg" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<main role="main" class="container">
+
+  <p>
+    <b>Question:</b> <%= @question.question %>
+  </p>
+
+  <p>
+    <b>Answer:</b> <%= @question.answer %>
+  </p>
+
+  <p>
+    <b>Option 1:</b> <%= @question.option_1 %>
+  </p>
+
+  <p>
+    <b>Option 2:</b> <%= @question.option_2 %>
+  </p>
+
+  <p>
+    <b>Option 3:</b> <%= @question.option_3 %>
+  </p>
+
+  <p>
+    <%= link_to 'Edit', edit_question_path(@question) %> |
+    <%= link_to 'Back', questions_path %>
+  </p>
+
+</main><!-- /.container -->
