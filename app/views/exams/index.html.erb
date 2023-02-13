@@ -19,8 +19,8 @@
           <td><%= exam.title %></td>
           <td><%= exam.start_time %></td>
           <td><%= exam.duration %></td>
-          <td><%= link_to 'Edit', edit_exam_path(exam) %></td>
-          <td><%= link_to 'View', exam_path(exam), method: :delete %></td>
+          <td><%= link_to 'Edit', edit_exam_path(exam), class: "btn btn-outline-success" %></td>
+          <td><%= link_to 'View', exam_path(exam), method: :delete, class: "btn btn-outline-success" %></td>
         </tr>
       <% end %>
     </tbody>

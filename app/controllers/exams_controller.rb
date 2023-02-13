@@ -1,4 +1,13 @@
 class ExamsController < ApplicationController
+
+  before_action :logged_in_user
+
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to login_url
+    end
+  end
     
       def index
         @exams ||= Exam.all
@@ -26,11 +35,12 @@ class ExamsController < ApplicationController
          end
     
         def update
-          if @exam.update(exam_params)
+          @exam = Exam.find(params[:id])
+           if @exam.update(exam_params)
             redirect_to exams_path, flash: { notice: 'Exam Added' }
           else
-            render :edit
-          end
+           render :edit
+            end
         end
     
         def destroy

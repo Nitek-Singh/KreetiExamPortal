@@ -8,11 +8,18 @@ Rails.application.routes.draw do
 
   resources :users
 
+  resources :dashboards
+
   resources :exams do
     resources :questions
   end
 
-  resources :registrations
+  resources :registrations do
+    member do
+      get 'attempt'
+      patch 'calculate_score'
+    end
+  end
 
   get '/login', to: 'sessions#login'
   post '/login', to: 'sessions#create'
