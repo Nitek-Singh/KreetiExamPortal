@@ -1,15 +1,66 @@
 <div class="container">
-<%= form_tag calculate_score_registration_path(@registration), method: :patch do %>
-  <%= hidden_field_tag 'exam_id', @registration.exam_id %>
-  <%= hidden_field_tag 'score', @registration.score %>
-  <% @questions.shuffle.each do |question| %>
-    <p><%= question.question %></p>
-    <ul>
-      <% [question.option_1, question.option_2, question.option_3].shuffle.each do |option| %>
-        <li><%= radio_button_tag "answers[#{question.id}]", option, false %> <%= option %></li>
-      <% end %>
-    </ul>
-  <% end %>
-  <%= submit_tag "Submit Exam" %>
-<% end %>
+<% if @registration.score.nil? %>
+  <%= form_tag calculate_score_registration_path(@registration), method: :patch do %>
+    <%= hidden_field_tag 'exam_id', @registration.exam_id %>
+    <%= hidden_field_tag 'score', @registration.score %>
+    <div class="timer mt-3 mb-3">
+    <p>Time left: <span id="time"> <%= @registration.exam.duration %> </span> minutes</p>
+  </div>
+    <% @questions.shuffle.each do |question| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-title font-weight-bold"> <%= question.question %> </p>
+          <ul class="list-group">
+            <% [question.option_1, question.option_2, question.option_3].shuffle.each do |option| %>
+              <li class="list-group-item">
+                <div class="form-check">
+                  <%= radio_button_tag "answers[#{question.id}]", option, false, class: "form-check-input", onclick: "$(this).closest('.form-check').addClass('selected');" %> 
+                  <label class="form-check-label"> <%= option %> </label>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+    <div class="text-center mt-3">
+      <%= submit_tag "Submit Exam", class: "btn btn-primary" %>
+    </div>
+    <% end %>
+    <% else %>
+    <div class="alert alert-danger text-center mt-3" role="alert">
+      You have already taken this exam and submitted your responses.
+    </div>
+  <% end %> 
 </div>
+
+<script>
+  var duration = <%= @registration.exam.duration %> * 60;
+  var timer = setInterval(function() {
+    duration = duration - 1;
+    document.getElementById("time").innerHTML = Math.floor(duration / 60) + ":" + (duration % 60);
+    if (duration === 0) {
+      clearInterval(timer);
+      document.forms[0].submit();
+    }
+  }, 1000);
+</script>
+
+<style>
+  .timer {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 2px;
+  }
+
+  .timer p {
+    font-size: 18px;
+  }
+
+  .timer span {
+    color: #ff6b6b;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  </style>

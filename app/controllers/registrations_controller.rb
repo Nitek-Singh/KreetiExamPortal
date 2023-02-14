@@ -39,27 +39,35 @@ class RegistrationsController < ApplicationController
         redirect_to registrations_url, notice: 'Registration was successfully destroyed.'
       end
 
-    def attempt
-      @registration = Registration.find(params[:id])
-      @questions = @registration.exam.questions 
-    end
-
-    def calculate_score
-      score = 0
-      answers = params[:answers]
-      answers.each do |question_id, answer|
-        question = Question.find(question_id)
-        score += 10 if question.answer == answer
+      def attempt
+        @registration = Registration.find(params[:id])
+        @questions = @registration.exam.questions
+        session[:answers] ||= {}
       end
-      @registration.score = score
-      @registration.save
-      redirect_to @registration, notice: "Your score is #{score}"
-    end
+      
+      def calculate_score
+        score = 0
+        answers = params[:answers] || session[:answers]
+        answers.each do |question_id, answer|
+          question = Question.find(question_id)
+          score += 10 if question.answer == answer
+        end
+        session[:answers].merge!(answers)
+        if params[:answers]
+          @registration.score = score
+          @registration.save
+          session[:answers] = nil
+          redirect_to @registration, notice: "Your score is #{score}"
+        else
+          redirect_to attempt_registration_path(@registration)
+        end
+      end
+      
 
 
 
   private
-  
+
   def set_registration
     if params[:id]
       @registration = Registration.find(params[:id])

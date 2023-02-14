@@ -9,8 +9,9 @@ class DashboardsController < ApplicationController
     end
 
     def show
-      @user = User.find(params[:id])
+      @registrations = current_user.registrations.where.not(score: nil)
     end
   end
+
   end
   

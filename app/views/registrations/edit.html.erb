@@ -1,13 +1,17 @@
-<h1>Editing Registration</h1>
-<%= form_with model: @registration do |form| %>
-<%= form.hidden_field :user_id %>
-<div class="field">
-  <%= form.label :exam_id %>
-  <%= form.collection_select :exam_id, Exam.all, :id, :title %>
-</div>
+<div class="container">
+<h1 class="mb-4">Editing Registration</h1>
 
-<div class="actions">
-  <%= form.submit %>
-</div>
+<%= form_with model: @registration, class: "row g-3" do |form| %>
+  <%= form.hidden_field :user_id %>
+
+  <div class="col-md-6">
+    <%= form.label :exam_id, class: "form-label" %>
+    <%= form.collection_select :exam_id, Exam.all, :id, :title, { include_blank: true }, class: "form-select" %>
+  </div>
+
+  <div class="col-12 mt-3">
+    <%= form.submit "Save changes", class: "btn btn-primary" %>
+    <%= link_to 'Back', registrations_path, class: "btn btn-secondary ms-2" %>
+  </div>
 <% end %>
-<%= link_to 'Back', registrations_path %>
+</div>

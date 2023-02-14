@@ -1,6 +1,23 @@
 <div class="container">
-<h1>Dashboard</h1>
-<p>Name: <%= @user.name %></p>
-<p>Department: <%= @user.department %></p>
-<p>Email: <%= @user.email %></p>
+  <h2 class="text-center mb-4">Your Exam Scores</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Exam Name</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @registrations.each do |registration| %>
+        <tr>
+          <td><%= registration.exam.title %></td>
+          <td><%= registration.score %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
+
+
+
+
