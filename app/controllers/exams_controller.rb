@@ -44,6 +44,7 @@ class ExamsController < ApplicationController
         end
     
         def destroy
+          @exam = Exam.find(params[:id])
           @exam.destroy
           redirect_to exams_path, flash: { notice: 'Exam Deleted' }
         end

@@ -1,11 +1,12 @@
 <div class="container">
+<%= render 'shared/formerrors', model: @registration %>
   <h2 class="mb-4">New Registration</h2>
 
   <%= form_with model: @registration, url: registrations_path do |form| %>
     <%= form.hidden_field :user_id %>
 
     <div class="col-md-6">
-      <%= form.label :exam_id %><br/>
+      <%= form.label :exam_id %>
       <%= form.select :exam_id, options_from_collection_for_select(Exam.all, :id, :title), { prompt: "Select an exam" }, class: "form-control shadow rounded" %>
     </div><br/>
 

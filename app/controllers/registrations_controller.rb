@@ -2,6 +2,14 @@ class RegistrationsController < ApplicationController
 
   before_action :set_registration, only: [:show, :edit, :update, :destroy, :attempt, :calculate_score]
   before_action :verify_user, only: [:attempt]
+  before_action :logged_in_user
+
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to login_url
+    end
+  end
 
     def index
         @registrations = Registration.all

@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
 
     def index
+        @exam = Exam.find(params[:exam_id])
         @questions = @exam.questions
     end
 
@@ -18,7 +19,7 @@ class QuestionsController < ApplicationController
         @exam = Exam.find(params[:exam_id])
         @question = @exam.questions.new(question_params)
             if @question.save
-                redirect_to exams_path, flash: { notice: 'Question Added' }
+                redirect_to exam_path(@exam), flash: { notice: 'Question Added' }
                 
             else
                 render :new
@@ -34,11 +35,18 @@ class QuestionsController < ApplicationController
         @exam = Exam.find(params[:exam_id])
         @question = @exam.questions.find(params[:id])
      if @question.update(question_params)
-        redirect_to exams_path, flash: { notice: 'Question Updated' }
+        redirect_to exam_path(@exam), flash: { notice: 'Question Updated' }
     else
         render :edit
     end
 end
+
+def destroy
+    @exam = Exam.find(params[:exam_id])
+    @question = @exam.questions.find(params[:id])
+    @question.destroy
+    redirect_to exam_path(@exam), flash: { notice: 'Question Deleted' }
+  end
 
 def question_params
     params.require(:question).permit(:question, :answer, :option_1, :option_2, :option_3, :exam_id)

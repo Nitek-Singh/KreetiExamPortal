@@ -1,5 +1,4 @@
 <main role="main" class="container">
-<%= link_to @exam.name, @exam %></h1>
 
   <h1>Multiple Choice Questions</h1>
 
@@ -22,18 +21,13 @@
           <td><%= question.option_1 %></td>
           <td><%= question.option_2 %></td>
           <td><%= question.option_3 %></td>
-          <td>
-            <%= link_to 'Show', question_path(question) %>
-            <%= link_to 'Edit', edit_question_path(question) %>
-            <%= link_to 'Destroy', question_path(question), method: :delete %>
-          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
   <p>
-    <%= link_to 'New Multiple Choice Question', new_question_path %>
+    <%= link_to 'New Multiple Choice Question', new_exam_question_path %>
   </p>
 
 </main><!-- /.container -->

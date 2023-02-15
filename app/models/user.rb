@@ -4,8 +4,9 @@ class User < ApplicationRecord
   has_many :registrations
   has_many :exams
 
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
-
   has_secure_password
+
+  validates :name, :department, :email, presence: true
+  validates :admin, inclusion: { in: [true, false] }
+  validates :email, uniqueness: true
 end

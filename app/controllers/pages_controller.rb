@@ -1,4 +1,11 @@
 class PagesController < ApplicationController
     def home
-     end
+        @logged_in = logged_in?
+      end
+      
+      private
+      
+      def logged_in?
+        !!current_user
+      end
 end
