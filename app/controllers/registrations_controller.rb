@@ -55,21 +55,21 @@ class RegistrationsController < ApplicationController
       
       def calculate_score
         score = 0
-        answers = params[:answers] || session[:answers]
+        answers = params.require(:answers).permit!
         answers.each do |question_id, answer|
           question = Question.find(question_id)
           score += 10 if question.answer == answer
         end
+      
+        # Save the answers in the session
         session[:answers].merge!(answers)
-        if params[:answers]
-          @registration.score = score
-          @registration.save
-          session[:answers] = nil
-          redirect_to @registration, notice: "Your score is #{score}"
-        else
-          redirect_to attempt_registration_path(@registration)
-        end
+      
+        # Save the score in the database
+        @registration.score = score
+        @registration.save
+        redirect_to @registration, notice: "Your score is #{score}"
       end
+      
       
 
 
