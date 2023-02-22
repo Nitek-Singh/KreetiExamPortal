@@ -1,0 +1,23 @@
+<div class="container my-5">
+  <h1 class="text-center mb-4">Exam Schedule</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Exam Name</th>
+        <th>Start Date and Time</th>
+        <th>Duration (mins)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @registrations.each do |registration| %>
+        <tr>
+          <td><%= registration.exam.title %></td>
+          <td><%= registration.exam.start_time.strftime('%b %d, %Y %H:%M %p') %></td>
+          <td><%= registration.exam.duration %></td>
+          <td><%= link_to 'Attempt', attempt_registration_path(registration), class: 'btn btn-primary' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -13,5 +13,9 @@ class DashboardsController < ApplicationController
     end
   end
 
+  def schedule
+    @registrations = current_user.registrations.includes(:exam)
+  end
+
   end
   

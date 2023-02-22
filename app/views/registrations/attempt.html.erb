@@ -1,9 +1,9 @@
 <div class="container">
-<% if @registration.score.nil? %>
-  <%= form_tag calculate_score_registration_path(@registration), method: :patch do %>
+  <% if @registration.score.nil? %>
+    <%= form_tag calculate_score_registration_path(@registration), method: :patch do %>
     <%= hidden_field_tag 'exam_id', @registration.exam_id %>
     <%= hidden_field_tag 'score', @registration.score %>
-    <div class="timer mt-3 mb-3">
+  <div class="timer mt-3 mb-3">
     <p>Time left: <span id="time"> <%= @registration.exam.duration %> </span> minutes</p>
   </div>
     <% @questions.shuffle.each do |question| %>

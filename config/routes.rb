@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :dashboards
+  resources :dashboards do
+    member do
+      get 'schedule'
+    end
+  end
 
   resources :exams do
     resources :questions
