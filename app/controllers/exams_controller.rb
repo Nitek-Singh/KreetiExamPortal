@@ -48,6 +48,18 @@ class ExamsController < ApplicationController
           @exam.destroy
           redirect_to exams_path, flash: { notice: 'Exam Deleted' }
         end
+
+        def demo_attempt
+          @exam = Exam.find_by(title: "Demo Test")
+          @questions = @exam.questions
+          session[:demo_answers] ||= {}
+        end
+
+        def demo_calculate_score
+          flash[:notice] = "Thanks for taking the test!"
+          redirect_to new_registration_path
+        end        
+        
     
         private
     

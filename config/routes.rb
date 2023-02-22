@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   end
 
   resources :exams do
+    member do
+      get 'demo_attempt'
+      post 'demo_calculate_score'
+    end
     resources :questions
   end
 

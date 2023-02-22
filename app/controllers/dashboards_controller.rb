@@ -1,14 +1,13 @@
 class DashboardsController < ApplicationController
-
   before_action :logged_in_user
 
   def logged_in_user
     unless logged_in?
       flash[:danger] = "Please log in."
       redirect_to login_url
-    end
+  end
 
-    def show
+  def show
       @registrations = current_user.registrations.where.not(score: nil)
     end
   end
@@ -16,6 +15,4 @@ class DashboardsController < ApplicationController
   def schedule
     @registrations = current_user.registrations.includes(:exam)
   end
-
-  end
-  
+end
