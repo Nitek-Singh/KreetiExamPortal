@@ -1,5 +1,6 @@
 class ExamsController < ApplicationController
 
+  before_action :set_exam, only: [:show, :edit, :update, :destroy, :demo_attempt, :demo_calculate_score]
   before_action :logged_in_user
 
   def logged_in_user
@@ -60,11 +61,10 @@ class ExamsController < ApplicationController
           redirect_to new_registration_path
         end        
         
-    
         private
     
-        def set_Exam
-          @exam ||= Exam.find(params[:id])
+        def set_exam
+          @exam = Exam.find(params[:id])
         end
     
         def exam_params

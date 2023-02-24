@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   end
 
   get '/login', to: 'sessions#login'
+  get '/participations', to: 'participations#index'
+
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 

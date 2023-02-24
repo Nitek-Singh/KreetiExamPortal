@@ -1,0 +1,29 @@
+<div class="container">
+<% @exams.each do |exam| %>
+  <% if exam.registrations.any? %>
+    <div class="card bg-cream mt-3">
+      <div class="card-header">
+        <h2 class="card-title"><%= exam.title %></h2>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Participant Name</th>
+              <th>College</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% exam.registrations.each do |registration| %>
+              <tr>
+                <td><%= registration.user.name %></td>
+                <td><%= registration.user.college.name %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+</div>
