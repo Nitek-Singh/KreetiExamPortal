@@ -17,7 +17,7 @@ class DashboardsController < ApplicationController
                                       { registrations: regs, scores: scores }
                                     end
   
-  end  
+  end
 
   def show
       @registrations = current_user.registrations.where.not(score: nil)

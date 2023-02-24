@@ -5,15 +5,33 @@
         <div class="card mt-4">
           <div class="card-body">
             <h3 class="card-title"><%= exam.title %></h3>
-            <p class="card-text">Your score: <%= registrations.sum(&:score) %></p>
-            <p class="card-text">Average score: <%= exam.registrations.average(:score) %></p>
-            <p class="card-text">Highest score: <%= exam.registrations.maximum(:score) %></p>
-            <% user_registration = Registration.find_by(user_id: current_user.id) %>
-            <% rel_registrations = Registration.where(exam_id: user_registration.exam_id).where.not(score: nil) %>
-            <% overall_rank = rel_registrations.where.not(score: nil).where('score > ?', user_registration.score).count + 1 %>
-            <% college_rank = rel_registrations.joins(:user).where(users: { college_id: current_user.college_id }).where.not(score: nil).where('score > ?', user_registration.score).count + 1 %>
-            <p class="card-text">Overall rank: <%= overall_rank %></p>
-            <p class="card-text">College rank: <%= college_rank %></p>
+            
+            <% user_registration = registrations.find { |r| r.user_id == current_user.id } %>
+            <% if user_registration %>
+              <% user_score = user_registration.score %>
+              <% # Calculate the average and highest scores for the current exam %>
+              <% average_score = exam.registrations.average(:score) %>
+              <% highest_score = exam.registrations.maximum(:score) %>
+              <p class="card-text">Your score: <%= user_score %></p>
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: <%= (user_score/100.0)*100 %>%" aria-valuenow="<%= user_score %>" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <p class="card-text">Average score: <%= average_score %></p>
+              <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: <%= (average_score/100.0)*100 %>%" aria-valuenow="<%= average_score %>" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <p class="card-text">Highest score: <%= highest_score %></p>
+              
+              <% rel_registrations = exam.registrations.where.not(score: nil) %>
+              <% # Calculate the overall rank of the current user, based on their score %>
+              <% overall_rank = rel_registrations.where('score > ?', user_score).count + 1 %>
+              <p class="card-text">Overall rank: <strong><%= overall_rank %></strong></p>
+  
+              <% college_rank = rel_registrations.joins(user: :college).where(colleges: { id: current_user.college_id }).where('score > ?', user_score).count + 1 %>
+              <p class="card-text">College rank: <strong><%= college_rank %></strong></p>
+            <% else %>
+              <p class="card-text">You have not taken this exam.</p>
+            <% end %>
           </div>
         </div>
       <% end %>
