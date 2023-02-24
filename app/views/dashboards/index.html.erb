@@ -1,8 +1,9 @@
+<br/>
 <div class="container">
   <% if @exam_groups.any? { |exam, registrations| registrations.any?(&:score) } %>
     <% @exam_groups.each do |exam, registrations| %>
       <% if registrations.any?(&:score) %>
-        <div class="card mt-4">
+        <div class="card bg-cream mb-3">
           <div class="card-body">
             <h3 class="card-title"><%= exam.title %></h3>
             
@@ -12,23 +13,39 @@
               <% # Calculate the average and highest scores for the current exam %>
               <% average_score = exam.registrations.average(:score) %>
               <% highest_score = exam.registrations.maximum(:score) %>
-              <p class="card-text">Your score: <%= user_score %></p>
-              <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: <%= (user_score/100.0)*100 %>%" aria-valuenow="<%= user_score %>" aria-valuemin="0" aria-valuemax="100"></div>
+              
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= (user_score/100.0)*100 %>%" aria-valuenow="<%= user_score %>" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="text-center"><%= user_score %></h4>
+                  <p class="text-center">Your score</p>
+                </div>
+                <div class="col-sm-4">
+                  <div class="progress">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: <%= (average_score/100.0)*100 %>%" aria-valuenow="<%= average_score %>" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="text-center"><%= average_score %></h4>
+                  <p class="text-center">Average score</p>
+                </div>
+                <div class="col-sm-4">
+                  <div class="progress">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: <%= (highest_score/100.0)*100 %>%" aria-valuenow="<%= highest_score %>" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="text-center"><%= highest_score %></h4>
+                  <p class="text-center">Highest score</p>
+                </div>
               </div>
-              <p class="card-text">Average score: <%= average_score %></p>
-              <div class="progress">
-                <div class="progress-bar bg-info" role="progressbar" style="width: <%= (average_score/100.0)*100 %>%" aria-valuenow="<%= average_score %>" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <p class="card-text">Highest score: <%= highest_score %></p>
               
               <% rel_registrations = exam.registrations.where.not(score: nil) %>
-              <% # Calculate the overall rank of the current user, based on their score %>
+              
               <% overall_rank = rel_registrations.where('score > ?', user_score).count + 1 %>
-              <p class="card-text">Overall rank: <strong><%= overall_rank %></strong></p>
+              <p class="card-text mt-4"><strong>Your overall rank:</strong> <%= overall_rank %></p>
   
               <% college_rank = rel_registrations.joins(user: :college).where(colleges: { id: current_user.college_id }).where('score > ?', user_score).count + 1 %>
-              <p class="card-text">College rank: <strong><%= college_rank %></strong></p>
+              <p class="card-text"><strong>Your college rank for <%= current_user.college.name %>:</strong> <%= college_rank %></p>
+              
             <% else %>
               <p class="card-text">You have not taken this exam.</p>
             <% end %>
