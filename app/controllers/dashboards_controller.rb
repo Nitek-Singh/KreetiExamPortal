@@ -8,8 +8,16 @@ class DashboardsController < ApplicationController
   end
    
   def index
-    @exam_groups = current_user.registrations.includes(:exam).group_by { |registration| registration.exam }
-  end
+    registrations = current_user.registrations.includes(:user, :exam)
+    @exam_groups = registrations.group_by(&:exam)
+    @college_groups = registrations.where.not(users: { college_id: nil })
+                                    .group_by { |r| r.user.college }
+                                    .transform_values do |regs|
+                                      scores = regs.pluck(:score).reject(&:nil?)
+                                      { registrations: regs, scores: scores }
+                                    end
+  
+  end  
 
   def show
       @registrations = current_user.registrations.where.not(score: nil)
