@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 class="text-center my-5">Exam Performance</h2>
+  <% @exam_groups.each do |exam, registrations| %>
+    <div class="card my-3">
+      <div class="card-body">
+        <h3 class="card-title"><%= exam.title %></h3>
+        <% if registrations.any?(&:score) %>
+          <p class="card-text">Your score: <%= registrations.sum(&:score) %></p>
+          <p class="card-text">Average score: <%= exam.registrations.average(:score) %></p>
+          <p class="card-text">Highest score: <%= exam.registrations.maximum(:score) %></p>
+          <% scores = exam.registrations.where.not(score: nil).group_by(&:score) %>
+          <% rank = 1 %>
+          <% scores.keys.sort.reverse.each do |score| %>
+            <% scores[score].each do |registration| %>
+              <% if registration.user == current_user %>
+                <p class="card-text">Your rank: <%= rank %></p>
+              <% end %>
+            <% end %>
+            <% rank += scores[score].size %>
+          <% end %>
+        <% else %>
+          <p class="card-text">You have not taken this exam yet.</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -21,7 +21,6 @@ class RegistrationsController < ApplicationController
 
     def new
         @registration = Registration.new(user: current_user)
-        @exam = Exam.find_by(title: "Demo Test")
       end
     
       def create

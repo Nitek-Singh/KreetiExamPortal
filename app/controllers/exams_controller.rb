@@ -56,7 +56,7 @@ class ExamsController < ApplicationController
         end
 
         def demo_calculate_score
-          flash[:notice] = "Thanks for taking the test!"
+          flash[:success] = "Thanks for taking the test!"
           redirect_to new_registration_path
         end        
         
