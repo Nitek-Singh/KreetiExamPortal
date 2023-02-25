@@ -1,32 +1,36 @@
 <div class="container">
- <h2> List of Exams</h2><br/>
- 
- <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Title</th>
-        <th scope="col">Start Date</th>
-        <th scope="col">Duration (mins)</th>
-        <th colspan=2>Actions</th>
-      </tr>
-    </thead>
+  <h2 class="text-center mt-4 mb-4">List of Exams</h2>
 
-    <tbody>
-      <% @exams.each do |exam| %>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="thead-cream">
         <tr>
-          <td><%= exam.id %></td>
-          <td><%= exam.title %></td>
-          <td><%= exam.start_time %></td>
-          <td><%= exam.duration %></td>
-          <td><%= link_to 'Edit', edit_exam_path(exam), class: "btn btn-outline-success" %></td>
-          <td><%= link_to 'View', exam_path(exam), method: :delete, class: "btn btn-outline-success" %></td>
-          <td><%= button_to 'Delete', exam, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
+          <th scope="col">Title</th>
+          <th scope="col">Start Date</th>
+          <th scope="col">Duration (mins)</th>
+          <th scope="col">Actions</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
- <%= link_to ' Add New Exam', new_exam_path, class: "btn btn-outline-success" %>
+      </thead>
+      <tbody>
+        <% @exams.each do |exam| %>
+          <tr>
+            <td><%= exam.title %></td>
+            <td><%= exam.start_time.strftime('%B %d, %Y - %I:%M %p') %></td>
+            <td><%= exam.duration %></td>
+            <td>
+              <div class="d-flex">
+                <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, exam_path(exam), class: "btn btn-secondary btn-sm me-2" %>
+                <%= link_to '<i class="fas fa-edit"></i> Edit'.html_safe, edit_exam_path(exam), class: "btn btn-primary btn-sm me-2" %>
+                <%= button_to '<i class="fas fa-trash"></i> Delete'.html_safe, exam, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-
+  <div class="text-center">
+    <%= link_to '<i class="fas fa-plus"></i> Add New Exam'.html_safe, new_exam_path, class: "btn btn-success btn-lg mt-4" %>
+  </div>
 </div>
