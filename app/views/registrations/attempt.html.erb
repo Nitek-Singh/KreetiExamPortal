@@ -6,7 +6,7 @@
   <div class="timer mt-3 mb-3">
     <p>Time left: <span id="time"> <%= @registration.exam.duration %> </span> minutes</p>
   </div>
-    <% @questions.shuffle.each do |question| %>
+    <% @questions.each do |question| %>
       <div class="card mb-3">
         <div class="card-body">
           <p class="card-title font-weight-bold"> <%= question.question %> </p>

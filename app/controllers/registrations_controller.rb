@@ -49,7 +49,7 @@ class RegistrationsController < ApplicationController
 
       def attempt
         @registration = Registration.find(params[:id])
-        @questions = @registration.exam.questions
+        @questions = @registration.exam.questions.shuffle
         session[:answers] ||= {}
         # Convert the exam start time to IST
         exam_start_time = @registration.exam.start_time.in_time_zone('New Delhi')
@@ -60,28 +60,24 @@ class RegistrationsController < ApplicationController
         redirect_to schedule_dashboard_path and return
         end
       end
-      
+
       def calculate_score
-        score = 0
-        answers = params.require(:answers).permit!
-        answers.each do |question_id, answer|
-          question = Question.find(question_id)
-          score += 10 if question.answer == answer
+        answers = params[:answers]
+        if answers.present?
+          score = 0
+          answers.each do |question_id, answer|
+            question = Question.find(question_id)
+            score += 10 if question.answer == answer
+          end
+          @registration.score = score
+          @registration.save
+          redirect_to dashboards_path, notice: "Your score is #{score}"
+        else
+          flash.now[:warning] = "Please answer at least one question."
+          redirect_back(fallback_location: root_path)
         end
+      end               
       
-        # Save the answers in the session
-        session[:answers].merge!(answers)
-      
-        # Save the score in the database
-        @registration.score = score
-        @registration.save
-        redirect_to @registration, notice: "Your score is #{score}"
-      end
-      
-      
-
-
-
   private
 
   def set_registration

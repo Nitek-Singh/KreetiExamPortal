@@ -13,7 +13,7 @@
       <% @registrations.each do |registration| %>
         <tr>
           <td><%= registration.exam.title %></td>
-          <td><%= registration.exam.start_time.strftime('%b %d, %Y %H:%M %p') %></td>
+          <td><%= registration.exam.start_time.in_time_zone('New Delhi').strftime('%b %d, %Y %H:%M %p') %></td>
           <td><%= registration.exam.duration %></td>
           <td><%= link_to 'Attempt', attempt_registration_path(registration), class: 'btn btn-primary' %></td>
           <td><%= link_to "Appear For Demo Test", demo_attempt_exam_path(id: @exam.id, exam_id: @exam.id), class: "btn btn-outline-success" %></td>
