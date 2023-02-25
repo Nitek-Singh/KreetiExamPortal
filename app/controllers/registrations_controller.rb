@@ -51,6 +51,14 @@ class RegistrationsController < ApplicationController
         @registration = Registration.find(params[:id])
         @questions = @registration.exam.questions
         session[:answers] ||= {}
+        # Convert the exam start time to IST
+        exam_start_time = @registration.exam.start_time.in_time_zone('New Delhi')
+
+        # Check if the current time is before the exam start time
+        if Time.zone.now < exam_start_time
+        flash[:warning] = "This exam is not yet available. Please check back at #{exam_start_time.strftime('%m/%d/%Y %I:%M %p %Z')}."
+        redirect_to schedule_dashboard_path and return
+        end
       end
       
       def calculate_score
