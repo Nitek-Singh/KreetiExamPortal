@@ -1,31 +1,25 @@
-<div class="container">
-<%= render 'shared/formerrors', model: @exam %>
+<div class="container my-5">
+  <%= render 'shared/formerrors', model: @exam %>
   <div class="row justify-content-center">
-    <div class="col-10">
-    <%= form_with(model: @exam, class: "shadow p-3 mb-3 bg-info rounded", local: true) do |f| %>
-    <div class="form-group row">
-          <%= f.label :title, class: "col-2 col-form-label text-light" %>
-          <div class="col-10"> 
-            <%= f.text_field :title, class: "form-control shadow rounded", placeholder: "Enter Exam Title" %>
-          </div>
-        </div><br/>
+    <div class="col-lg-10 col-md-10">
+      <%= form_with(model: @exam, class: "p-4 mb-3 rounded-lg border border-secondary", local: true) do |f| %>
+        <div class="form-group">
+          <%= f.label :title, class: "text-muted font-weight-bold small" %>
+          <%= f.text_field :title, class: "form-control rounded-pill bg-light", placeholder: "Enter Exam Title" %>
+        </div>
 
-        <div class="form-group row">
-          <%= f.label :start_time, class: "col-2 col-form-label text-light" %>
-          <div class="col-10"> 
-            <%= f.datetime_local_field :start_time, class: "form-control shadow rounded", placeholder: "Exam Start Time" %>
-          </div>
-        </div><br/>
+        <div class="form-group">
+          <%= f.label :start_time, class: "text-muted font-weight-bold small" %>
+          <%= f.datetime_local_field :start_time, class: "form-control rounded-pill bg-light", placeholder: "Exam Start Time" %>
+        </div>
 
-        <div class="form-group row">
-          <%= f.label :duration, class: "col-2 col-form-label text-light" %>
-          <div class="col-10"> 
-            <%= f.number_field :duration, class: "form-control shadow rounded", placeholder: "Exam Duration" %>
-          </div>
-        </div><br/>
+        <div class="form-group">
+          <%= f.label :duration, class: "text-muted font-weight-bold small" %>
+          <%= f.number_field :duration, class: "form-control rounded-pill bg-light", placeholder: "Exam Duration" %>
+        </div>
 
-        <div class="form-group row justify-content-center">
-          <%= f.submit 'Create Exam', class: "btn btn-outline-light btn-lg" %>
+        <div class="form-group text-center mt-4">
+          <%= f.submit 'Create Exam', class: "btn btn-primary rounded-pill px-5" %>
         </div>
       <% end %>
     </div>

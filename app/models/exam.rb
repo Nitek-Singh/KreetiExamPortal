@@ -4,5 +4,5 @@ class Exam < ApplicationRecord
 
   belongs_to :user
 
-  validates :title, :user_id, presence: true
+  validates :title, :start_time, :duration, :user_id, presence: true
 end
