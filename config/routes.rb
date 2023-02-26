@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'exams/details', to: 'exams#details', as: 'exam_details'
+
   resources :exams do
     member do
       get 'demo_attempt'

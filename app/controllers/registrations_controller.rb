@@ -26,7 +26,7 @@ class RegistrationsController < ApplicationController
       def create
         @registration = Registration.new(registration_params.merge(user: current_user))
         if @registration.save
-          redirect_to @registration, notice: 'Registration was successfully created.'
+          redirect_to schedule_dashboard_path(current_user), flash: { success: 'Successfully Registered!' }
         else
           render :new
         end

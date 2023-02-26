@@ -14,6 +14,10 @@ class ExamsController < ApplicationController
         @exams ||= Exam.all
       end
 
+      def details
+        @exams = Exam.where.not(title: "Demo Test").includes(:questions)
+      end
+
       def show
         @exam = Exam.find(params[:id])
       end
@@ -64,7 +68,7 @@ class ExamsController < ApplicationController
         private
     
         def set_exam
-          @exam = Exam.find(params[:id])
+          @exam = Exam.includes(:questions).find(params[:id])
         end
     
         def exam_params

@@ -6,9 +6,10 @@
     <%= form.hidden_field :user_id %>
 
     <div class="col-md-6">
-      <%= form.label :exam_id %>
-      <%= form.select :exam_id, options_from_collection_for_select(Exam.all, :id, :title), { prompt: "Select an exam" }, class: "form-control shadow rounded" %>
-    </div><br/>
+  <%= form.label :exam_id %>
+  <%= form.select :exam_id, options_from_collection_for_select(Exam.where.not(title: 'Demo Test'), :id, :title), { prompt: "Select an exam" }, class: "form-control shadow rounded" %>
+</div>
+<br/>
 
     <div class="col-md-6">
       <%= form.submit "Register", class: "btn btn-primary mr-2" %>
