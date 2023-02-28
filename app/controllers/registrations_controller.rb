@@ -50,7 +50,6 @@ class RegistrationsController < ApplicationController
       def attempt
         @registration = Registration.find(params[:id])
         @questions = @registration.exam.questions.shuffle
-        session[:answers] ||= {}
         # Convert the exam start time to IST
         exam_start_time = @registration.exam.start_time.in_time_zone('New Delhi')
 
