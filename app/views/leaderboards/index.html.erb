@@ -1,31 +1,43 @@
-<div class="container">
+<div class="container py-5">
   <% @exams.each do |exam| %>
-    <h3><%= exam.title %></h3>
-    <% @departments.each do |department| %>
-      <% registrations = exam.registrations.where(department_id: department.id).order(score: :desc) %>
-      <% unless registrations.empty? %>
-        <h4><%= department.name %></h4>
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped table-hover">
-            <thead class="thead-bg cream">
-              <tr>
-                <th scope="col">Rank</th>
-                <th scope="col">User</th>
-                <th scope="col">Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% registrations.each.with_index(1) do |registration, index| %>
-                <tr>
-                  <td><%= index %></td>
-                  <td><%= registration.user.name %></td>
-                  <td><%= registration.score %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+    <div class="card mb-5">
+      <div class="card-body">
+        <h3 class="card-title mb-4"><%= exam.title %></h3>
+        <div class="row">
+          <% @departments.each do |department| %>
+            <% registrations = exam.registrations.where(department_id: department.id).order(score: :desc) %>
+            <% unless registrations.empty? %>
+              <div class="col-md-4 mb-4">
+                <div class="card shadow">
+                  <div class="card-body bg-cream">
+                    <h4 class="card-title mb-4 text-primary"><%= department.name %></h4>
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col">User</th>
+                            <th scope="col" class="text-center">Score</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% registrations.each.with_index(1) do |registration, index| %>
+                            <tr>
+                              <td class="text-center bg-secondary text-light"><%= index %></td>
+                              <td><%= registration.user.name %></td>
+                              <td class="text-center bg-success text-light"><%= registration.score %></td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
         </div>
-      <% end %>
-    <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
