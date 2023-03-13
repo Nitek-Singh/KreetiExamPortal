@@ -5,6 +5,7 @@
     <table class="table table-striped">
       <thead class="thead-cream">
         <tr>
+          <th scope="col">Department</th>
           <th scope="col">Title</th>
           <th scope="col">Start Date</th>
           <th scope="col">Duration (mins)</th>
@@ -14,6 +15,7 @@
       <tbody>
         <% @exams.each do |exam| %>
           <tr>
+            <td><%= exam.department.name %></td>
             <td><%= exam.title %></td>
             <td><%= exam.start_time.in_time_zone('New Delhi').strftime('%B %d, %Y - %I:%M %p') %></td>
             <td><%= exam.duration %></td>

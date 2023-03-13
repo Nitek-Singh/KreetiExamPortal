@@ -72,6 +72,6 @@ class ExamsController < ApplicationController
         end
     
         def exam_params
-          params.require(:exam).permit(:title, :start_time, :duration)
+          params.require(:exam).permit(:title, :start_time, :duration, :department_id)
         end
       end

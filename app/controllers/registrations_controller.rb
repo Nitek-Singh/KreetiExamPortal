@@ -24,14 +24,25 @@ class RegistrationsController < ApplicationController
       end
     
       def create
-        @registration = Registration.new(registration_params.merge(user: current_user))
-        if @registration.save
-          redirect_to schedule_dashboard_path(current_user), flash: { success: 'Successfully Registered!' }
-        else
+        exam_ids = registration_params[:exam_ids].reject(&:blank?)
+        if exam_ids.blank?
+          flash.now[:warning] = 'Please select at least one exam.'
           render :new
+          return
         end
-      end
-
+      
+        exam_ids.each do |exam_id|
+          registration = Registration.new(registration_params.except(:exam_ids).merge(user: current_user, exam_id: exam_id))
+          unless registration.save
+            flash[:warning] = "Failed to register for #{registration.exam.title}. #{registration.errors.full_messages.join(', ')}"
+            render :new
+            return
+          end
+        end
+      
+        redirect_to schedule_dashboard_path(current_user), flash: { success: 'Successfully registered!' }
+      end        
+      
       def edit; end
 
       def update
@@ -94,7 +105,7 @@ class RegistrationsController < ApplicationController
   end
 
   def registration_params
-    params.require(:registration).permit(:exam_id, :score)
+    params.require(:registration).permit(:user_id, :department_id, :score, exam_ids: [])
   end
     
 end

@@ -1,9 +1,12 @@
-<main role="main" class="container">
+<main role="main" class="container my-3">
   <div class="card">
     <div class="card-header">
       <h3>Exam Details</h3>
     </div>
     <div class="card-body">
+      <p class="card-text">
+        <b>Department:</b> <%= @exam.department.name %>
+      </p>
       <p class="card-text">
         <b>Title:</b> <%= @exam.title %>
       </p>
@@ -15,6 +18,7 @@
       </p>
     </div>
   </div>
+
   <div class="card mt-3">
     <div class="card-header">
       <h3>Questions</h3>
@@ -28,6 +32,7 @@
             <th scope="col">Option 1</th>
             <th scope="col">Option 2</th>
             <th scope="col">Option 3</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -39,17 +44,22 @@
               <td><%= options[0] %></td>
               <td><%= options[1] %></td>
               <td><%= options[2] %></td>
-              <td><%= link_to 'Edit', edit_exam_question_path(@exam, question), class: "btn btn-sm btn-primary" %></td>
-              <td><%= button_to 'Delete', exam_question_path(@exam, question), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
+              <td>
+              <div class="d-flex">
+                  <%= link_to 'Edit', edit_exam_question_path(@exam, question), class: "btn btn-sm btn-primary" %>
+                  <%= button_to 'Delete', exam_question_path(@exam, question), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
+                </div>
+              </td>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
   </div>
+
   <div class="d-flex justify-content-between mt-3">
     <%= link_to 'Edit Exam', edit_exam_path(@exam), class: "btn btn-primary" %>
     <%= link_to 'Back', exams_path, class: "btn btn-secondary" %>
     <%= link_to 'Add New Question', new_exam_question_path(@exam), class: "btn btn-success" %>
-  </div><br/>
+  </div>
 </main><!-- /.container -->

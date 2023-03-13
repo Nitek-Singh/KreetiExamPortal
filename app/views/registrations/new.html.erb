@@ -1,17 +1,18 @@
-<div class="container">
-<%= render 'shared/formerrors', model: @registration %>
+<div class="container my-3">
   <h2 class="mb-4">New Registration</h2>
-
   <%= form_with model: @registration, url: registrations_path do |form| %>
     <%= form.hidden_field :user_id %>
-
-    <div class="col-md-6">
-  <%= form.label :exam_id %>
-  <%= form.select :exam_id, options_from_collection_for_select(Exam.where.not(title: 'Demo Test'), :id, :title), { prompt: "Select an exam" }, class: "form-control shadow rounded" %>
-</div>
-<br/>
-
-    <div class="col-md-6">
+    <div class="col-md-6 my-3">
+      <%= form.label :department_id, "Department" %>
+      <%= form.select :department_id, options_from_collection_for_select(Department.all, :id, :name), { prompt: "Select Engineering department" }, class: "form-control shadow rounded" %>
+    </div>
+    
+    <div class="col-md-6 my-3">
+      <%= form.label :exam_ids, "Choose Your Subject" %>
+      <%= form.select :exam_ids, options_from_collection_for_select(Exam.where.not(title: 'Demo Test'), :id, :title), { }, { multiple: true, class: "form-control shadow rounded selectpicker", data: { style: 'btn-outline-secondary', size: 5 } } %>
+    </div>
+  
+    <div class="col-md-6-my-3">
       <%= form.submit "Register", class: "btn btn-primary mr-2" %>
       <%= link_to "Back", exam_details_path, class: "btn btn-secondary" %>
     </div>

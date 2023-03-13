@@ -9,11 +9,6 @@
         </div>
 
         <div class="form-group mb-3">
-          <%= f.label :department, class: "form-label" %>
-          <%= f.text_field :department, class: "form-control", placeholder: "Enter Your Department" %>
-        </div>
-
-        <div class="form-group mb-3">
           <%= f.label :college_id, class: "form-label" %>
           <%= f.select :college_id, class: "form-select" do %>
             <% College.all.each do |college| %>

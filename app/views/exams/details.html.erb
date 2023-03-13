@@ -6,15 +6,17 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>No. of Questions</th>
-              <th>Duration (mins)</th>
+              <th>Department</th>
+              <th>Subject</th>
+              <th>Total Questions</th>
+              <th>Exam Duration (mins)</th>
               <th>Start Time</th>
             </tr>
           </thead>
           <tbody>
             <% @exams.each do |exam| %>
               <tr>
+                <td><%= exam.department.name %></td>
                 <td><%= exam.title %></td>
                 <td><%= exam.questions.count %></td>
                 <td><%= exam.duration %></td>

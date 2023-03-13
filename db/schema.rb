@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_09_071133) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_12_133019) do
   create_table "colleges", force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -24,6 +30,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_09_071133) do
     t.integer "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "department_id", null: false
+    t.index ["department_id"], name: "index_exams_on_department_id"
     t.index ["user_id"], name: "index_exams_on_user_id"
   end
 
@@ -45,13 +53,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_09_071133) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "score"
+    t.integer "department_id", null: false
+    t.index ["department_id"], name: "index_registrations_on_department_id"
     t.index ["exam_id"], name: "index_registrations_on_exam_id"
     t.index ["user_id"], name: "index_registrations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
-    t.string "department", null: false
     t.boolean "admin", default: false
     t.integer "college_id"
     t.string "email", null: false
@@ -63,4 +72,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_09_071133) do
     t.index ["college_id"], name: "index_users_on_college_id"
   end
 
+  add_foreign_key "exams", "departments"
+  add_foreign_key "registrations", "departments"
 end

@@ -1,9 +1,10 @@
-<br/>
 <div class="container">
   <% @exams.each do |exam| %>
-    <div class="card bg-cream mb-5">
-      <div class="card-body">
-        <h2 class="card-title mb-4"><%= exam.title %></h2>
+    <h3><%= exam.title %></h3>
+    <% @departments.each do |department| %>
+      <% registrations = exam.registrations.where(department_id: department.id).order(score: :desc) %>
+      <% unless registrations.empty? %>
+        <h4><%= department.name %></h4>
         <div class="table-responsive">
           <table class="table table-bordered table-striped table-hover">
             <thead class="thead-bg cream">
@@ -14,25 +15,17 @@
               </tr>
             </thead>
             <tbody>
-              <% if exam.registrations.count == 0 %>
+              <% registrations.each.with_index(1) do |registration, index| %>
                 <tr>
-                  <td colspan="3">No scores available for this exam.</td>
+                  <td><%= index %></td>
+                  <td><%= registration.user.name %></td>
+                  <td><%= registration.score %></td>
                 </tr>
-              <% else %>
-                <% exam.registrations.order(score: :desc).each.with_index(1) do |registration, index| %>
-                  <% if registration.score %>
-                    <tr>
-                      <td><%= index %></td>
-                      <td><%= registration.user.name %></td>
-                      <td><%= registration.score %></td>
-                    </tr>
-                  <% end %>
-                <% end %>
               <% end %>
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
