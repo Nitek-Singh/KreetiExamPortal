@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#login'
   get '/participations', to: 'participations#index'
   get 'leaderboards', to: 'leaderboards#index'
+  get 'pages', to: 'pages#index'
 
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
