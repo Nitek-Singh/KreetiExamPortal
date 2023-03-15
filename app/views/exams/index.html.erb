@@ -23,7 +23,8 @@
               <div class="d-flex">
                 <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, exam_path(exam), class: "btn btn-secondary btn-sm me-2" %>
                 <%= link_to '<i class="fas fa-edit"></i> Edit'.html_safe, edit_exam_path(exam), class: "btn btn-primary btn-sm me-2" %>
-                <%= button_to '<i class="fas fa-trash"></i> Delete'.html_safe, exam, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+                <%= button_to "Delete", exam_path(exam), method: :delete, class: "btn btn-danger", onclick: "confirmDelete(event)" %>
+
               </div>
             </td>
           </tr>
@@ -36,3 +37,13 @@
     <%= link_to '<i class="fas fa-plus"></i> Add New Exam'.html_safe, new_exam_path, class: "btn btn-success btn-lg mt-4" %>
   </div>
 </div>
+
+<script>
+function confirmDelete(event) {
+  event.preventDefault(); // prevent the default form submission
+  if (confirm("Are you sure you want to delete this exam?")) {
+    event.target.closest("form").submit(); // submit the form
+  }
+}
+</script>
+

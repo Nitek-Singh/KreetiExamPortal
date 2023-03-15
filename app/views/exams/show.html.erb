@@ -47,7 +47,7 @@
               <td>
               <div class="d-flex justify-content-between">
                   <%= link_to 'Edit', edit_exam_question_path(@exam, question), class: "btn btn-sm btn-primary" %>
-                  <%= button_to 'Delete', exam_question_path(@exam, question), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
+                  <%= button_to 'Delete', exam_question_path(@exam, question), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger",  onclick: "confirmDelete(event)" %>
                 </div>
               </td>
             </tr>
@@ -63,3 +63,12 @@
     <%= link_to 'Add New Question', new_exam_question_path(@exam), class: "btn btn-success" %>
   </div>
 </main><!-- /.container -->
+
+<script>
+function confirmDelete(event) {
+  event.preventDefault(); // prevent the default form submission
+  if (confirm("Are you sure you want to delete this question?")) {
+    event.target.closest("form").submit(); // submit the form
+  }
+}
+</script>
