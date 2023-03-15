@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
         user = User.where(email: session_params[:email]).first
         if user && user&.authenticate(session_params[:password])
           session[:user_id] = user.id
-          redirect_to exam_details_path, flash: { notice: "Welcome #{user.name}" }
+          redirect_to dashboards_path, flash: { notice: "Welcome #{user.name}" }
         else
           redirect_to login_path, flash: { warning: 'Check Credentials and Try Again' }
         end

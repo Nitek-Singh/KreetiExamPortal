@@ -2,7 +2,7 @@
   <div class="card bg-cream mb-3">
     <div class="card-body">
       <h1 class="card-title">Exam Details</h1>
-      <div class="table-responsive">
+      <div class="table-responsive exam-table-container">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -11,6 +11,7 @@
               <th>Total Questions</th>
               <th>Exam Duration (mins)</th>
               <th>Start Time</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -26,26 +27,27 @@
           </tbody>
         </table>
       </div>
-      <%= link_to 'Register For Exam', new_registration_path, class: "btn btn-outline-success mt-5" %>
-      <% if admin = User.find_by(admin: true) %>
-        <h2 class="mt-5 mb-3">Admin Details</h2>
-        <div class="row d-flex align-items-center">
-          <div class="col-md-3">
-            <%= image_tag "logos/logo.jpg", class: "img-fluid rounded-circle" %>
+      <%= link_to 'Register For Exam', new_registration_path, class: "btn btn-outline-success" %>
+      <%= link_to "Appear For Demo Test", demo_attempt_exam_path(@examid), class: "btn btn-outline-success" %>
+      <div class="mt-5">
+        <% if admin = User.find_by(admin: true) %>
+          <h2 class="mb-3">Admin Details</h2>
+          <div class="row d-flex align-items-center">
+            <div class="col-md-3">
+              <%= image_tag "logos/logo.jpg", class: "img-fluid rounded-circle" %>
+            </div>
+            <div class="col-md-8">
+              <p class="font-weight-bold"><%= admin.name %></p>
+              <p><%= admin.description %></p>
+              <p>
+                <a href="<%= admin.linkedin_url %>" target="_blank" class="btn btn-primary">
+                  <i class="fab fa-linkedin"></i> LinkedIn Profile
+                </a>
+              </p>
+            </div>
           </div>
-          <div class="col-md-8">
-            <p class="font-weight-bold mb-1"></p>
-            <p><%= admin.name %></p>
-            <p class="font-weight-bold mb-1"></p>
-            <p><%= admin.description %></p>
-            <p>
-              <a href="<%= admin.linkedin_url %>" target="_blank" class="btn btn-primary">
-                <i class="fab fa-linkedin"></i> LinkedIn Profile
-              </a>
-            </p>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

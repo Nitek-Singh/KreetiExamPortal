@@ -16,6 +16,7 @@ class ExamsController < ApplicationController
 
       def details
         @exams = Exam.where.not(title: "Demo Test").includes(:questions)
+        @examid = Exam.where(title: "Demo Test").ids
       end
 
       def show
@@ -56,6 +57,7 @@ class ExamsController < ApplicationController
 
         def demo_attempt
           @exam = Exam.find_by(title: "Demo Test")
+          @examid= @exam.id
           @questions = @exam.questions
           session[:demo_answers] ||= {}
         end
