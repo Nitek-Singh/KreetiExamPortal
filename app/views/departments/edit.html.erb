@@ -1,0 +1,18 @@
+<div class="container mt-2" style="width: 50%;">
+  <h1>Edit Department</h1>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <%= form_with(model: @department, url: department_path(@department), method: :patch, local: true) do |form| %>
+        <div class="mb-3">
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="d-grid gap-2">
+          <%= form.submit 'Update', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

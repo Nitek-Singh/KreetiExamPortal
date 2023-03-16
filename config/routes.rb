@@ -4,9 +4,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   #get 'exams/new', to: 'exams#new', as: 'new_quiz' 
-  root "dashboards#index"
+  root "sessions#login"
 
   resources :users
+
+  resources :colleges
+
+  resources :departments
 
   resources :dashboards do
     member do

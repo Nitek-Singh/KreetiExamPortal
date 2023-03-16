@@ -1,5 +1,5 @@
 <div class="container my-3">
-  <% if @exam_groups.any? { |exam, registrations| registrations.any?(&:score) } %>
+  <% if @exam_groups.present? && @exam_groups.any? { |exam, registrations| registrations.any?(&:score) } %>
     <% @exam_groups.each do |exam, registrations| %>
       <% if registrations.any?(&:score) %>
         <div class="card bg-cream mb-3">
