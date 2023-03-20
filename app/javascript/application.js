@@ -5,7 +5,7 @@ import 'bootstrap'
 
 function confirmDelete(event) {
   event.preventDefault(); // prevent the default form submission
-  if (confirm("Are you sure you want to delete this?")) {
+  if (confirm("Are you sure you want to delete This?")) {
     event.target.closest("form").submit(); // submit the form
   }
 }

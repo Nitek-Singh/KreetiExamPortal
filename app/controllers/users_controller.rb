@@ -37,6 +37,4 @@ class UsersController < ApplicationController
             params.require(:user).permit(:name, :department, :email, :college_id, :password, :description, :linkedin_url)
         end
     
-      
-
 end

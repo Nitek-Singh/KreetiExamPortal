@@ -1,6 +1,6 @@
 class ExamsController < ApplicationController
 
-  before_action :set_exam, only: [:show, :edit, :update, :destroy, :demo_attempt, :demo_calculate_score]
+  before_action :set_exam, only: [:show, :edit, :update, :destroy, :demo_calculate_score]
   before_action :logged_in_user
 
   def logged_in_user
@@ -20,7 +20,6 @@ class ExamsController < ApplicationController
       end
 
       def show
-        @exam = Exam.find(params[:id])
       end
     
       def new
@@ -37,11 +36,9 @@ class ExamsController < ApplicationController
       end
     
         def edit
-          @exam = Exam.find(params[:id])
          end
     
         def update
-          @exam = Exam.find(params[:id])
            if @exam.update(exam_params)
             redirect_to exams_path, flash: { notice: 'Exam Added' }
           else
@@ -50,7 +47,6 @@ class ExamsController < ApplicationController
         end
     
         def destroy
-          @exam = Exam.find(params[:id])
           @exam.destroy
           redirect_to exams_path, flash: { notice: 'Exam Deleted' }
         end

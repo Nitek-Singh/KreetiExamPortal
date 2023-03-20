@@ -5,7 +5,7 @@
         <h3 class="card-title mb-4"><%= exam.title %></h3>
         <div class="row">
           <% @departments.each do |department| %>
-            <% registrations = exam.registrations.where(department_id: department.id).order(score: :desc) %>
+            <% registrations = exam.registrations.where.not(score: nil).where(department_id: department.id).order(score: :desc) %>
             <% unless registrations.empty? %>
               <div class="col-md-4 mb-4">
                 <div class="card shadow">
@@ -16,7 +16,7 @@
                         <thead class="thead-dark">
                           <tr>
                             <th scope="col" class="text-center">#</th>
-                            <th scope="col">User</th>
+                            <th scope="col">Candidate Name</th>
                             <th scope="col" class="text-center">Score</th>
                           </tr>
                         </thead>
