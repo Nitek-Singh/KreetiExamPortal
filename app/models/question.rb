@@ -7,8 +7,8 @@ class Question < ApplicationRecord
   private
 
   def answer_in_options
-    unless [option_1, option_2, option_3].include?(answer)
-      errors.add(:answer, "must match one of the options")
-    end
+    return if [option_1, option_2, option_3].include?(answer)
+
+    errors.add(:answer, 'must match one of the options')
   end
 end

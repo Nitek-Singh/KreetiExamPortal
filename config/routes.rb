@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  #get 'exams/new', to: 'exams#new', as: 'new_quiz' 
-  root "sessions#login"
+  # get 'exams/new', to: 'exams#new', as: 'new_quiz'
+  root 'sessions#login'
 
   resources :users
 
@@ -42,6 +42,4 @@ Rails.application.routes.draw do
 
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-
-
 end

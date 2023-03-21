@@ -1,6 +1,6 @@
 class Department < ApplicationRecord
-    has_many :exams, dependent: :destroy
-    has_many :registrations
+  has_many :exams, dependent: :destroy
+  has_many :registrations
 
-    validates :name, presence: true
+  validates :name, presence: true
 end

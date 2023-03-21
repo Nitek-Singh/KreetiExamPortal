@@ -5,5 +5,5 @@ class LeaderboardsController < ApplicationController
                  .where.not(registrations: { score: nil })
                  .group(:department_id, :id)
                  .order('MAX(registrations.score) DESC')
-  end  
+  end
 end
