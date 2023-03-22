@@ -19,7 +19,7 @@
               <tr>
                 <td><%= exam.department.name %></td>
                 <td><%= exam.title %></td>
-                <td><%= exam.questions.count %></td>
+                <td><%= @exam_questions_count[exam.id] %></td>
                 <td><%= exam.duration %></td>
                 <td><%= exam.start_time.strftime("%m/%d/%Y %I:%M%p") %></td>
               </tr>

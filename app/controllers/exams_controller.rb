@@ -10,11 +10,12 @@ class ExamsController < ApplicationController
   end
 
   def index
-    @exams ||= Exam.all
+    @exams ||= Exam.all.includes(:department)
   end
 
   def details
-    @exams = Exam.where.not(title: 'Demo Test').includes(:questions)
+    @exams = Exam.where.not(title: 'Demo Test').includes(:questions, :department)
+    @exam_questions_count = @exams.map { |exam| [exam.id, exam.questions.size] }.to_h
     @examid = Exam.where(title: 'Demo Test').ids
   end
 

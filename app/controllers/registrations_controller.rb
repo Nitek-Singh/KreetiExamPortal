@@ -11,7 +11,7 @@ class RegistrationsController < ApplicationController
   end
 
   def index
-    @registrations = Registration.all
+    @registrations = Registration.all.includes(:exam, :user)
   end
 
   def show

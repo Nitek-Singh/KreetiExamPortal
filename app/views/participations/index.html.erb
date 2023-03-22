@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <% @exams.each do |exam| %>
-    <% if exam.registrations.any? %>
+    <% if exam.has_registration %>
       <div class="card bg-light mb-4">
         <div class="card-header">
           <h2 class="card-title m-0"><%= exam.title %></h2>
