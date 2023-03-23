@@ -8,7 +8,7 @@ class DashboardsController < ApplicationController
     end
 
     def index
-      registrations = current_user.registrations.includes(:user, :exam)
+      registrations = current_user.registrations.includes(:user, exam: [:department])
       @exam_groups = registrations.group_by(&:exam)
       @college_groups = registrations.where.not(users: { college_id: nil })
                                      .group_by { |r| r.user.college }

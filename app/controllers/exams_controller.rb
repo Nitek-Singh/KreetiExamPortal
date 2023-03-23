@@ -1,5 +1,5 @@
 class ExamsController < ApplicationController
-  before_action :set_exam, only: %i[show edit update destroy demo_calculate_score]
+  before_action :set_exam, only: %i[show edit update destroy]
   before_action :logged_in_user
 
   def logged_in_user

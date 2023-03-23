@@ -14,9 +14,7 @@ class RegistrationsController < ApplicationController
     @registrations = Registration.all.includes(:exam, :user)
   end
 
-  def show
-    @registration = Registration.find(params[:id])
-  end
+  def show; end
 
   def new
     @registration = Registration.new(user: current_user)
@@ -60,7 +58,6 @@ class RegistrationsController < ApplicationController
   end
 
   def attempt
-    @registration = Registration.find(params[:id])
     @questions = @registration.exam.questions.shuffle
     # Convert the exam start time to IST
     exam_start_time = @registration.exam.start_time.in_time_zone('New Delhi')

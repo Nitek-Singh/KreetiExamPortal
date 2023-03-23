@@ -18,7 +18,7 @@
                 <% exam.registrations.each do |registration| %>
                   <tr>
                     <td><%= registration.user.name %></td>
-                    <td><%= registration.user.college.name %></td>
+                    <td><%= registration.user.college.name if registration.user.present? && registration.user.college.present? %></td>
                   </tr>
                 <% end %>
               </tbody>

@@ -1,4 +1,6 @@
 class CollegesController < ApplicationController
+  before_action :set_college, only: %i[edit update destroy]
+
   def index
     @colleges = College.all
   end
@@ -16,12 +18,9 @@ class CollegesController < ApplicationController
     end
   end
 
-  def edit
-    @college = College.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @college = College.find(params[:id])
     if @college.update(college_params)
       redirect_to colleges_path, notice: 'College was successfully updated.'
     else
@@ -30,12 +29,15 @@ class CollegesController < ApplicationController
   end
 
   def destroy
-    @college = College.find(params[:id])
     @college.destroy
     redirect_to colleges_path, notice: 'College was successfully destroyed.'
   end
 
   private
+
+  def set_college
+    @college = College.find(params[:id])
+  end
 
   def college_params
     params.require(:college).permit(:name)
