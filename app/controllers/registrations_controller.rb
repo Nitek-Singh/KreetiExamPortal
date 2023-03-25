@@ -36,6 +36,7 @@ class RegistrationsController < ApplicationController
       flash[:warning] =
 "Failed to register for #{registration.exam.title}. #{registration.errors.full_messages.join(', ')}"
       render :new
+      flash.discard(:warning)
       return
     end
 

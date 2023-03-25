@@ -9,4 +9,3 @@ function confirmDelete(event) {
     event.target.closest("form").submit(); // submit the form
   }
 }
-

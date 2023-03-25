@@ -16,7 +16,6 @@ class ExamsController < ApplicationController
   def details
     @exams = Exam.where.not(title: 'Demo Test').includes(:questions, :department)
     @exam_questions_count = @exams.map { |exam| [exam.id, exam.questions.size] }.to_h
-    @examid = Exam.where(title: 'Demo Test').ids
   end
 
   def show; end

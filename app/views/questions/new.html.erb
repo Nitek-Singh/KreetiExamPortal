@@ -1,29 +1,45 @@
 <div class="container">
-<%= render 'shared/formerrors', model: @question %>
+  <%= render 'shared/formerrors', model: @question %>
   <div class="row">
     <div class="col-sm-8 offset-sm-2">
-    <h1 class="mb-3">New Multiple Choice Question</h1>
+      <h1 class="mb-3">New Multiple Choice Question</h1>
       <%= form_for([@exam, @question]) do |f| %>
         <div class="form-group">
-          <%= f.label :question %>
-          <%= f.text_field :question, class: 'form-control' %>
+          <%= f.label :question do %>
+            <%= content_tag(:span, '*', class: 'text-danger me-1') %>
+            <%= "Question" %>
+          <% end %>
+          <%= f.text_field :question, class: 'form-control', required: true %>
         </div>
         <div class="form-group">
-          <%= f.label :answer %>
-          <%= f.text_field :answer, class: 'form-control' %>
+          <%= f.label :answer do %>
+            <%= content_tag(:span, '*', class: 'text-danger me-1') %>
+            <%= "Answer" %>
+          <% end %>
+          <%= f.text_field :answer, class: 'form-control', required: true %>
         </div>
         <div class="form-group">
-          <%= f.label :option_1 %>
-          <%= f.text_field :option_1, class: 'form-control' %>
+          <%= f.label :option_1 do %>
+            <%= content_tag(:span, '*', class: 'text-danger me-1') %>
+            <%= "Option 1" %>
+          <% end %>
+          <%= f.text_field :option_1, class: 'form-control', required: true %>
         </div>
         <div class="form-group">
-          <%= f.label :option_2 %>
-          <%= f.text_field :option_2, class: 'form-control' %>
+          <%= f.label :option_2 do %>
+            <%= content_tag(:span, '*', class: 'text-danger me-1') %>
+            <%= "Option 2" %>
+          <% end %>
+          <%= f.text_field :option_2, class: 'form-control', required: true %>
         </div>
         <div class="form-group">
-          <%= f.label :option_3 %>
-          <%= f.text_field :option_3, class: 'form-control' %>
-        </div><br/>
+          <%= f.label :option_3 do %>
+            <%= content_tag(:span, '*', class: 'text-danger me-1') %>
+            <%= "Option 3" %>
+          <% end %>
+          <%= f.text_field :option_3, class: 'form-control', required: true %>
+        </div>
+        <br/>
         <div class="form-group">
           <%= f.submit 'Save Question', class: 'btn btn-primary' %>
         </div>

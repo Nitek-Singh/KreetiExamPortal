@@ -29,9 +29,13 @@ class DepartmentsController < ApplicationController
   end
 
   def destroy
+    if @department.exams.present? || @department.registrations.present?
+      redirect_to departments_path,  flash: { alert: 'Cannot delete Department, It has associated Exams or Registrations' }
+    else
     @department.destroy
     redirect_to departments_path, notice: 'Department was successfully deleted.'
   end
+end
 
   private
 

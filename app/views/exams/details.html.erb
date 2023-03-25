@@ -28,7 +28,6 @@
         </table>
       </div>
       <%= link_to 'Register For Exam', new_registration_path, class: "btn btn-outline-success" %>
-      <%= link_to "Appear For Demo Test", demo_attempt_exam_path(@examid), class: "btn btn-outline-success" %>
       <div class="mt-5">
         <% if admin = User.find_by(admin: true) %>
           <h2 class="mb-3">Admin Details</h2>

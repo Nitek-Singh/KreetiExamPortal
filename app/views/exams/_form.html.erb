@@ -4,23 +4,23 @@
     <div class="col-lg-10 col-md-10">
       <%= form_with(model: @exam, class: "p-4 mb-3 rounded-lg border border-secondary", local: true) do |f| %>
         <div class="form-group">
-          <%= f.label :title, class: "text-muted font-weight-bold small" %>
-          <%= f.text_field :title, class: "form-control rounded-pill bg-light", placeholder: "Enter Exam Title" %>
+          <%= f.label :title, "Title #{content_tag(:span, '*', class: 'text-danger')}".html_safe, class: "text-muted font-weight-bold small" %>
+          <%= f.text_field :title, class: "form-control rounded-pill bg-light", placeholder: "Enter Exam Title", required: true %>
         </div>
 
         <div class="form-group">
-          <%= f.label :start_time, class: "text-muted font-weight-bold small" %>
-          <%= f.datetime_local_field :start_time, class: "form-control rounded-pill bg-light", placeholder: "Exam Start Time" %>
+          <%= f.label :start_time, "Start Time #{content_tag(:span, '*', class: 'text-danger')}".html_safe, class: "text-muted font-weight-bold small" %>
+          <%= f.datetime_local_field :start_time, class: "form-control rounded-pill bg-light", placeholder: "Exam Start Time", required: true %>
         </div>
 
         <div class="form-group">
-          <%= f.label :duration, class: "text-muted font-weight-bold small" %>
-          <%= f.number_field :duration, class: "form-control rounded-pill bg-light", placeholder: "Exam Duration" %>
+          <%= f.label :duration, "Duration #{content_tag(:span, '*', class: 'text-danger')}".html_safe, class: "text-muted font-weight-bold small" %>
+          <%= f.number_field :duration, class: "form-control rounded-pill bg-light", placeholder: "Exam Duration in Minutes", required: true %>
         </div>
 
         <div class="form-group">
-          <%= f.label :department_id, class: "text-muted font-weight-bold small" %>
-          <%= f.collection_select :department_id, Department.all, :id, :name, { prompt: "Select a department" }, { class: "form-control rounded-pill bg-light" } %>
+          <%= f.label :department_id, "Department #{content_tag(:span, '*', class: 'text-danger')}".html_safe, class: "text-muted font-weight-bold small" %>
+          <%= f.collection_select :department_id, Department.all, :id, :name, { prompt: "Select a department" }, { class: "form-control rounded-pill bg-light", required: true } %>
         </div>
 
         <div class="form-group text-center mt-4">
