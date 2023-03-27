@@ -5,7 +5,7 @@ class Exam < ApplicationRecord
   belongs_to :user
   belongs_to :department
 
-  validates :title, presence: true, length: { minimum: 3, maximum: 20 }
+  validates :title, presence: true, length: { minimum: 3, maximum: 30 }
   validates :start_time, :duration, :department_id, :user_id, presence: true
   validates :duration, numericality: { only_integer: true }
   validates :duration, length: { maximum: 3 }

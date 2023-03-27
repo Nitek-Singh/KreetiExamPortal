@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
     @exam = Exam.find(params[:exam_id])
     @question = @exam.questions.new(question_params)
     if @question.save
-      redirect_to exam_path(@exam), flash: { notice: 'Question Added' }
+      redirect_to exam_path(@exam), flash: { success: 'Question Added' }
 
     else
       render :new
@@ -33,7 +33,7 @@ class QuestionsController < ApplicationController
     @exam = Exam.find(params[:exam_id])
     @question = @exam.questions.find(params[:id])
     if @question.update(question_params)
-      redirect_to exam_path(@exam), flash: { notice: 'Question Updated' }
+      redirect_to exam_path(@exam), flash: { success: 'Question Updated' }
     else
       render :edit
     end
@@ -43,7 +43,7 @@ class QuestionsController < ApplicationController
     @exam = Exam.find(params[:exam_id])
     @question = @exam.questions.find(params[:id])
     @question.destroy
-    redirect_to exam_path(@exam), flash: { notice: 'Question Deleted' }
+    redirect_to exam_path(@exam), flash: { success: 'Question Deleted' }
   end
 
   def question_params

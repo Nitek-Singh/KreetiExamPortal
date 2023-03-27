@@ -1,4 +1,9 @@
 <div class="container">
+  <div class="text-right mb-4 my-3">
+    <%= link_to '<i class="fas fa-plus"></i> Add New Exam'.html_safe, new_exam_path, class: "btn btn-sm btn-success me-2" %>
+    <%= link_to '<i class="fas fa-plus"></i> Add New College'.html_safe, colleges_path, class: "btn btn-sm btn-warning me-2" %>
+    <%= link_to '<i class="fas fa-plus"></i> Add New Department'.html_safe, departments_path, class: "btn btn-sm btn-info" %>
+  </div>
   <h2 class="text-center mt-4 mb-4">List of Exams</h2>
 
   <div class="table-responsive">
@@ -31,11 +36,5 @@
         <% end %>
       </tbody>
     </table>
-  </div>
-
-  <div class="text-center">
-    <%= link_to '<i class="fas fa-plus"></i> Add New Exam'.html_safe, new_exam_path, class: "btn btn-sm btn-success mt-4" %>
-    <%= link_to '<i class="fas fa-plus"></i> Add New College'.html_safe, colleges_path, class: "btn btn-sm btn-warning  mt-4 mx-4" %>
-  <%= link_to '<i class="fas fa-plus"></i> Add New Department'.html_safe, departments_path, class: "btn btn-sm btn-info mt-4" %>
   </div>
 </div>

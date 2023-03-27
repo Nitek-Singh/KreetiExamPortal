@@ -21,25 +21,31 @@
           <% end %>
         </tbody>
       </table>
+      <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#addCollegeModal">Add College</button>
     </div>
   </div>
 
-  <div class="card mt-4">
-  <%= render 'shared/formerrors', model: @college %>
-    <div class="card-header">
-      <h2>Add College</h2>
-    </div>
-    <div class="card-body">
-      <%= form_with(model: @college, url: colleges_path, local: true) do |form| %>
-        <div class="form-group">
-          <%= form.label :name %>
-          <%= form.text_field :name, class: 'form-control' %>
+  <div class="modal fade" id="addCollegeModal" tabindex="-1" aria-labelledby="addCollegeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCollegeModalLabel">Add College</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-
-        <div class="form-group my-2">
-          <%= form.submit 'Save', class: 'btn btn-primary' %>
+        <div class="modal-body">
+          <%= form_with(model: @college, url: colleges_path, local: true, id: 'newCollegeForm') do |form| %>
+            <%= render 'shared/formerrors', model: @college %>
+            <div class="form-group">
+              <%= form.label :name %>
+              <%= form.text_field :name, class: 'form-control', required: true %>
+            </div>
         </div>
-      <% end %>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -9,7 +9,7 @@ class CollegesController < ApplicationController
   def create
     @college = College.new(college_params)
     if @college.save
-      redirect_to colleges_path, notice: 'College was successfully created.'
+      redirect_to colleges_path, flash: { success: 'College added successfully' }
     else
       @colleges = College.all
       render :index
@@ -20,7 +20,7 @@ class CollegesController < ApplicationController
 
   def update
     if @college.update(college_params)
-      redirect_to colleges_path, notice: 'College was successfully updated.'
+      redirect_to colleges_path, flash: { success: 'College updated successfully' }
     else
       render :edit
     end
@@ -28,10 +28,10 @@ class CollegesController < ApplicationController
 
   def destroy
     if @college.users.present?
-      redirect_to colleges_path,  flash: { alert: 'Cannot delete college, It has associated users' }
+      redirect_to colleges_path, flash: { warning: 'Cannot delete college, It has associated users' }
     else
       @college.destroy
-      redirect_to colleges_path, flash: { notice: 'College was successfully destroyed.' }
+      redirect_to colleges_path, flash: { success: 'College was successfully destroyed.' }
     end
   end
 

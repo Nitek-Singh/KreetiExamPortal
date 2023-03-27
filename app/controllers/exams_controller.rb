@@ -27,7 +27,7 @@ class ExamsController < ApplicationController
   def create
     @exam = current_user.exams.new(exam_params)
     if @exam.save
-      redirect_to exams_path, flash: { notice: 'Exam Added' }
+      redirect_to exams_path, flash: { success: 'Exam Added' }
     else
       render :new
     end
@@ -37,7 +37,7 @@ class ExamsController < ApplicationController
 
   def update
     if @exam.update(exam_params)
-      redirect_to exams_path, flash: { notice: 'Exam Added' }
+      redirect_to exams_path, flash: { success: 'Exam was updated successfully' }
     else
       render :edit
     end
@@ -45,7 +45,7 @@ class ExamsController < ApplicationController
 
   def destroy
     @exam.destroy
-    redirect_to exams_path, flash: { notice: 'Exam Deleted' }
+    redirect_to exams_path, flash: { success: 'Exam Deleted' }
   end
 
   def demo_attempt

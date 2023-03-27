@@ -1,30 +1,31 @@
 <div class="container my-3">
-  <h2 class="mb-4">New Registration</h2>
-
-  <% if Exam.where("start_time > ?", Time.current + 30.minutes).where.not(title: 'Demo Test').exists? %>
-    <%= form_with model: @registration, url: registrations_path do |form| %>
-      <%= form.hidden_field :user_id %>
-      <div class="col-md-12 my-3">
-        <%= form.label :department_id do %>
-          Department <%= content_tag(:span, '*', class: 'text-danger') %>
-          <%= form.select :department_id, options_from_collection_for_select(Department.all, :id, :name), { prompt: "Select Engineering department" }, class: "form-control shadow rounded" %>
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h2 class="fw-bold">New Registration</h2>
+    </div>
+    <% if Exam.where("start_time > ?", Time.current + 30.minutes).where.not(title: 'Demo Test').exists? %>
+      <div class="col-md-6 my-3">
+        <%= form_with model: @registration, url: registrations_path do |form| %>
+          <%= form.hidden_field :user_id %>
+          <div class="mb-3">
+            <%= form.label :department_id, "Department <span class='text-danger'>*</span>".html_safe, class: "form-label fw-bold" %>
+            <%= form.select :department_id, options_from_collection_for_select(Department.all, :id, :name), { prompt: "Select Engineering department" }, class: "form-control shadow rounded", required: true %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :exam_ids, "Choose Your Subject <span class='text-danger'>*</span>".html_safe, class: "form-label fw-bold" %>
+            <%= form.select :exam_ids, options_from_collection_for_select(Exam.where("start_time > ?", Time.current + 30.minutes).where.not(title: 'Demo Test'), :id, :title), { }, { multiple: true, class: "form-control shadow rounded selectpicker", data: { style: 'btn-outline-success', size: 5 } } %>
+          </div>
+          <div class="d-flex justify-content-start align-items-center">
+            <%= form.submit "Register", class: "btn btn-primary me-2" %>
+            <%= link_to "Back", exam_details_path, class: "btn btn-secondary" %>
+          </div>
         <% end %>
       </div>
-
-      <div class="col-md-12 my-3">
-        <%= form.label :exam_ids do %>
-          Choose Your Subject <%= content_tag(:span, '*', class: 'text-danger') %>
-          <%= form.select :exam_ids, options_from_collection_for_select(Exam.where("start_time > ?", Time.current + 30.minutes).where.not(title: 'Demo Test'), :id, :title), { }, { multiple: true, class: "form-control shadow rounded selectpicker", data: { style: 'btn-outline-secondary', size: 5 } } %>
-        <% end %>
-      </div>
-
-      <div class="col-md-8 my-3">
-        <%= form.submit "Register", class: "btn btn-primary mr-2" %>
+    <% else %>
+      <div class="col-12 my-3">
+        <p>No exams are available for registration at this time. Please try again later.</p>
         <%= link_to "Back", exam_details_path, class: "btn btn-secondary" %>
       </div>
     <% end %>
-  <% else %>
-    <p>No exams are available for registration at this time. Please try again later.</p>
-    <%= link_to "Back", exam_details_path, class: "btn btn-secondary" %>
-  <% end %>
+  </div>
 </div>
