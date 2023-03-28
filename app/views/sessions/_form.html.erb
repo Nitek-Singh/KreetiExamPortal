@@ -2,6 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-10">
       <p class="text-center">New to the platform? <%= link_to 'Sign up here!', new_user_path %></p>
+      <p class="text-center">Admin: nitekkumarsingh@gmail.com, password: Nitek@2</p>
       <%= form_with model: @user, class: "shadow p-3 mb-3 rounded", url: login_path, method: :post do |f| %>
         <div class="form-group row">
           <%= f.label :email, class: "col-3 col-form-label text-light" %>
